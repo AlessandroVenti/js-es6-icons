@@ -48,17 +48,6 @@ function iconsColored(arrayVanilla){
 }
 
 
-function iconsPrinted(arrayWithColors) {
-  arrayWithColors.forEach(element => {
-    $('.icons').append(
-                      `<div>
-                          <i class="${element.family} ${element.prefix}${element.name}" style="color:${element.color}"></i>
-                          <div class="title">${element.name.toUpperCase()}</div> 
-                      </div> `
-                    )
-  });
-}
-
 function getTypeArray(array) {
   let typeArray = []; 
   array.forEach(element => {
@@ -69,22 +58,59 @@ function getTypeArray(array) {
   return typeArray;
 }
 
-function filtering(typedArray) {
-  typedArray.forEach(function(element, index) {
-    $('#type').append(`<option value="">
-                        ${element}
-                     </option>`
-                    )
+
+function iconsPrinted(arrayWithColors) {
+  arrayWithColors.forEach(element => {
+    $('.icons').append(
+                      `<div>
+                          <i class="${element.family} ${element.prefix}${element.name}" style="color:${element.color}"></i>
+                          <div class="title">${element.name.toUpperCase()}</div> 
+                       </div> `
+                      );
+  });
+};
+
+
+function selectOptionsPrinted(typedArray) {
+  typedArray.forEach(element => {
+    $('#type').append(
+                      `<option value="${element}">
+                          ${element.charAt(0).toUpperCase()}${element.slice(1)}
+                       </option>`
+                     );
+  });
+};
+
+
+function iconsFiltered(arrayWithColors) {
+  
+  $('#type').change(function () {
+    $('.icons').empty();
+    var checkedOption = ($(this).val());
+    var filteredArray;
+    var check = 0;
+    arrayWithColors.forEach(element => {
+      if ( checkedOption === element.type) {
+        filteredArray = arrayWithColors.filter(element => element.type === checkedOption);
+        check = 1;
+        console.log(check);
+      }
+    });
+    if ( check == 1) {
+      iconsPrinted(filteredArray);     
+    } else {
+      iconsPrinted(arrayWithColors);
+    } 
   });
 }
-
 
 function init() {
   //->DATA<-
   icons();
   //->VIEW<-
   iconsPrinted(iconsColored(icons()));
-  filtering(getTypeArray(icons()));
+  selectOptionsPrinted(getTypeArray(icons()));
+  iconsFiltered(iconsColored(icons()));
 }
 
 
