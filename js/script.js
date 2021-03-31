@@ -86,9 +86,9 @@ function iconsFiltered(arrayWithColors) {
   
   $('#type').change(function () {
     $('.icons').empty();
-    var checkedOption = ($(this).val());
-    var filteredArray;
-    var check = 0;
+    let checkedOption = ($(this).val());
+    let filteredArray;
+    let check = 0;
     arrayWithColors.forEach(element => {
       if ( checkedOption === element.type) {
         filteredArray = arrayWithColors.filter(element => element.type === checkedOption);
