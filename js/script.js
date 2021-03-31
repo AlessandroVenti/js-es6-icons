@@ -28,3 +28,24 @@ function icons() {
   ];
 }
 
+function iconsPrinted(array) {
+  var iconDiv = $('.icons');
+  array.forEach(element => {
+      iconDiv.append(
+                      `<div>
+                          <i class="${element.family} ${element.prefix}${element.name}" style="color:blue"></i>
+                          <div class="title">${element.name.toUpperCase()}</div> 
+                      </div> `
+                    )
+  });
+}
+
+function init() {
+  //DATA
+  icons();
+  
+  //VIEW
+  iconsPrinted(icons());
+}
+
+$(document).ready(init);
