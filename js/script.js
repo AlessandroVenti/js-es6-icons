@@ -45,12 +45,12 @@ function iconsColored(arrayVanilla){
     }    
   });
   return arrayVanilla;
-} 
+}
+
 
 function iconsPrinted(arrayWithColors) {
-  var iconDiv = $('.icons');
   arrayWithColors.forEach(element => {
-      iconDiv.append(
+    $('.icons').append(
                       `<div>
                           <i class="${element.family} ${element.prefix}${element.name}" style="color:${element.color}"></i>
                           <div class="title">${element.name.toUpperCase()}</div> 
@@ -59,14 +59,33 @@ function iconsPrinted(arrayWithColors) {
   });
 }
 
-function init() {
-
-  //DATA
-  icons();
-  
-  //VIEW
-  iconsPrinted(iconsColored(icons()));
-
+function getTypeArray(array) {
+  let typeArray = []; 
+  array.forEach(element => {
+    if ( !typeArray.includes(element.type)) {
+      typeArray.push(element.type);
+    }
+  });
+  return typeArray;
 }
+
+function filtering(typedArray) {
+  typedArray.forEach(function(element, index) {
+    $('#type').append(`<option value="">
+                        ${element}
+                     </option>`
+                    )
+  });
+}
+
+
+function init() {
+  //->DATA<-
+  icons();
+  //->VIEW<-
+  iconsPrinted(iconsColored(icons()));
+  filtering(getTypeArray(icons()));
+}
+
 
 $(document).ready(init);
