@@ -28,12 +28,31 @@ function icons() {
   ];
 }
 
-function iconsPrinted(array) {
+
+function iconsColored(arrayVanilla){
+  arrayVanilla.forEach(element => {
+    switch (element.type) {
+      case "animal":
+        element.color = "blue";
+        break;
+  
+      case "vegetable":
+        element.color = "orange";
+        break;
+  
+      case "user":
+        element.color = "purple";
+    }    
+  });
+  return arrayVanilla;
+} 
+
+function iconsPrinted(arrayWithColors) {
   var iconDiv = $('.icons');
-  array.forEach(element => {
+  arrayWithColors.forEach(element => {
       iconDiv.append(
                       `<div>
-                          <i class="${element.family} ${element.prefix}${element.name}" style="color:blue"></i>
+                          <i class="${element.family} ${element.prefix}${element.name}" style="color:${element.color}"></i>
                           <div class="title">${element.name.toUpperCase()}</div> 
                       </div> `
                     )
@@ -41,11 +60,13 @@ function iconsPrinted(array) {
 }
 
 function init() {
+
   //DATA
   icons();
   
   //VIEW
-  iconsPrinted(icons());
+  iconsPrinted(iconsColored(icons()));
+
 }
 
 $(document).ready(init);
